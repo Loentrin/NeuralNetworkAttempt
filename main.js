@@ -68,14 +68,11 @@ c.addEventListener("mouseup", function(){
 	mouse.down = false
 })
 
-c.addEventListener("mousemove", function(e){
-	mouse.x = e.x - c.getBoundingClientRect().left
-	mouse.y = e.y - c.getBoundingClientRect().top
-	if(!mouse.down) return 0
-	var x1 = Math.floor(mouse.x/20)
-	var y1 = Math.floor(mouse.y/20)
+function drawingEvent(x, y, button){
+	var x1 = Math.floor(x/20)
+	var y1 = Math.floor(y/20)
 	var str = 1
-	if(mouse.button == 0){
+	if(button == 0){
 		grid[x1+y1*w] = Math.min(1, grid[x1+y1*w]+str)
 		ctx.fillStyle = "#000000"
 		ctx.globalAlpha = 1
@@ -158,7 +155,7 @@ c.addEventListener("mousemove", function(e){
 			ctx.fillRect((x1-1)*20, (y1-1)*20, 20, 20)
 		}
 	}
-	if(mouse.button == 2){
+	if(button == 2){
 		grid[x1+y1*w] = 0
 		ctx.fillStyle = "#000000"
 		ctx.globalAlpha = 1
@@ -167,6 +164,19 @@ c.addEventListener("mousemove", function(e){
 	ctx.globalAlpha = 1
 
 	runNetwork()
+}
+
+c.addEventListener("mousemove", function(e){
+	mouse.x = e.x - c.getBoundingClientRect().left
+	mouse.y = e.y - c.getBoundingClientRect().top
+	if(!mouse.down) return 0
+	drawingEvent(mouse.x, mouse.y, mouse.button)
+})
+
+document.addEventListener('touchstart',function(e){
+	var canvasRect = c.getBoundingClientRect()
+	var t = e.changedTouches[0]
+	drawingEvent(t.clientX - canvasRect.left, t.clientY - canvasRect.top, 0)
 })
 
 //trainData = localStorage.getItem("HandwrittenDigits").split(';')
