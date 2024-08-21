@@ -1,12 +1,12 @@
 function activationFunction(x){
 	return 1/(Math.exp(-x)+1)
-	if(x < 0) return 0
-	return x
+	//if(x < 0) return 0
+	//return x
 }
 
 function activationDerivative(x){
 	return activationFunction(x)*(1-activationFunction(x))
-	return Number(x >= 0)
+	//return Number(x >= 0)
 }
 
 function errorCost(x, expected){

@@ -173,7 +173,7 @@ c.addEventListener("mousemove", function(e){
 	drawingEvent(mouse.x, mouse.y, mouse.button)
 })
 
-document.addEventListener('touchstart',function(e){
+document.addEventListener('touchmove',function(e){
 	var canvasRect = c.getBoundingClientRect()
 	var t = e.changedTouches[0]
 	drawingEvent(t.clientX - canvasRect.left, t.clientY - canvasRect.top, 0)
